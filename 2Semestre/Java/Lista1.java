@@ -361,24 +361,50 @@
 // }
 
 //16)
+// import java.util.Scanner;
+// public class Lista1{
+//     public static void main(String[] args){
+//         Scanner sc = new Scanner(System.in);
+//         //recebe o salario e o valor do emprestimo solicitado
+//         System.out.println("Digite o seu salário: ");
+//         double s = sc.nextDouble();
+//         System.out.println("Digite o valor do emprestimo: ");
+//         double e = sc.nextDouble();
+//         //define quanto é 20% do salário
+//         double p = s*0.2;
+
+//         if(e > p){
+//             System.out.println("Empréstimo não concedido.");
+//         } else {
+//             System.out.println("Empréstimo concedido");
+//         }
+//         sc.close();
+//     }
+// }
+
+//17)
 import java.util.Scanner;
 public class Lista1{
     public static void main(String[] args){
         Scanner sc = new Scanner(System.in);
-        //recebe o salario e o valor do emprestimo solicitado
-        System.out.println("Digite o seu salário: ");
-        double s = sc.nextDouble();
-        System.out.println("Digite o valor do emprestimo: ");
-        double e = sc.nextDouble();
-        //define quanto é 20% do salário
-        double p = s*0.2;
-
-        if(e > p){
-            System.out.println("Empréstimo não concedido.");
-        } else {
-            System.out.println("Empréstimo concedido");
+        //recebe altura e o sexo da pessoa
+        System.out.println("Digite a altura em cm: (ex: 180)");
+        double altura = sc.nextDouble();
+        System.out.println("Digite o sexo: ");
+        char sexo = Character.toLowerCase(sc.next().charAt(0));
+        if(sexo == 'm'){
+            double pesoideal = (72.7* (altura/100)) - 58;
+            System.out.println("O Peso ideal é "+pesoideal);
+        }
+        else if(sexo == 'f'){
+            double pesoideal = (62.1*(altura/100)) - 44.7;
+            System.out.println("O peso ideal é "+pesoideal);
+        }
+        else{
+            System.out.println("Operação inválida");
         }
         sc.close();
     }
 }
 
+//Character.toLowerCase(sc.next().charAt(0));
