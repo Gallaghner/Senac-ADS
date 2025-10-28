@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama de Classes - Sistema de Biblioteca</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            font-weight: 300;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .diagram {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            position: relative;
+        }
+
+        .class-box {
+            border: 3px solid #3498db;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            box-shadow: 0 8px 25px rgba(52, 152, 219, 0.15);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .class-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(52, 152, 219, 0.25);
+            border-color: #2980b9;
+        }
+
+        .class-header {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            font-size: 1.2em;
+            text-align: center;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .class-content {
+            padding: 20px;
+        }
+
+        .attributes, .methods {
+            margin-bottom: 15px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 5px;
+        }
+
+        .attribute, .method {
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 5px 0;
+            padding: 5px 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            transition: background 0.2s ease;
+        }
+
+        .attribute:hover, .method:hover {
+            background: #e9ecef;
+        }
+
+        .private {
+            color: #e74c3c;
+        }
+
+        .public {
+            color: #27ae60;
+        }
+
+        .inheritance {
+            border-color: #9b59b6;
+        }
+
+        .inheritance .class-header {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+
+        .relationships {
+            margin-top: 40px;
+            padding: 25px;
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 12px;
+            border: 2px solid #dee2e6;
+        }
+
+        .relationships h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .relationship {
+            margin: 10px 0;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+
+        .relationship:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(145deg, #fff3cd, #ffeeba);
+            border-radius: 10px;
+            border: 2px solid #ffc107;
+        }
+
+        .legend h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .legend-item {
+            margin: 8px 0;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .diagram {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏫 Sistema de Biblioteca - Escola Phoenix</h1>
+        
+        <div class="diagram">
+            <!-- Classe Usuario (Pai) -->
+            <div class="class-box inheritance">
+                <div class="class-header">Usuario</div>
+                <div class="class-content">
+                    <div class="attributes">
+                        <div class="section-title">📊 Atributos</div>
+                        <div class="attribute"><span class="private">- id:</span> int</div>
+                        <div class="attribute"><span class="private">- nome:</span> string</div>
+                        <div class="attribute"><span class="private">- email:</span> string</div>
+                        <div class="attribute"><span class="private">- tipo:</span> string</div>
+                    </div>
+                    <div class="methods">
+                        <div class="section-title">⚙️ Métodos</div>
+                        <div class="method"><span class="public">+ login():</span> boolean</div>
+                        <div class="method"><span class="public">+ logout():</span> void</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classe Aluno -->
+            <div class="class-box">
+                <div class="class-header">Aluno</div>
+                <div class="class-content">
+                    <div class="attributes">
+                        <div class="section-title">📊 Atributos</div>
+                        <div class="attribute"><span class="private">- matricula:</span> string</div>
+                        <div class="attribute"><span class="private">- nome:</span> string</div>
+                        <div class="attribute"><span class="private">- email:</span> string</div>
+                        <div class="attribute"><span class="private">- telefone:</span> string</div>
+                        <div class="attribute"><span class="private">- curso:</span> string</div>
+                    </div>
+                    <div class="methods">
+                        <div class="section-title">⚙️ Métodos</div>
+                        <div class="method"><span class="public">+ pegarEmprestado():</span> boolean</div>
+                        <div class="method"><span class="public">+ devolverLivro():</span> void</div>
+                        <div class="method"><span class="public">+ getHistorico():</span> List</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classe Atendente -->
+            <div class="class-box">
+                <div class="class-header">Atendente</div>
+                <div class="class-content">
+                    <div class="attributes">
+                        <div class="section-title">📊 Atributos</div>
+                        <div class="attribute"><span class="private">- id:</span> int</div>
+                        <div class="attribute"><span class="private">- nome:</span> string</div>
+                        <div class="attribute"><span class="private">- turno:</span> string</div>
+                    </div>
+                    <div class="methods">
+                        <div class="section-title">⚙️ Métodos</div>
+                        <div class="method"><span class="public">+ registrarEmprestimo():</span> Emprestimo</div>
+                        <div class="method"><span class="public">+ registrarDevolucao():</span> void</div>
+                        <div class="method"><span class="public">+ consultarDisponibilidade():</span> boolean</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classe Bibliotecaria -->
+            <div class="class-box">
+                <div class="class-header">Bibliotecária</div>
+                <div class="class-content">
+                    <div class="attributes">
+                        <div class="section-title">📊 Atributos</div>
+                        <div class="attribute"><span class="private">- id:</span> int</div>
+                        <div class="attribute"><span class="private">- nome:</span> string</div>
+                        <div class="attribute"><span class="private">- formacao:</span> string</div>
+                    </div>
+                    <div class="methods">
+                        <div class="section-title">⚙️ Métodos</div>
+                        <div class="method"><span class="public">+ cadastrarLivro():</span> void</div>
+                        <div class="method"><span class="public">+ removerLivro():</span> void</div>
+                        <div class="method"><span class="public">+ gerarRelatorios():</span> string</div>
+                        <div class="method"><span class="public">+ gerenciarAcervo():</span> void</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classe Livro -->
+            <div class="class-box">
+                <div class="class-header">📚 Livro</div>
+                <div class="class-content">
+                    <div class="attributes">
+                        <div class="section-title">📊 Atributos</div>
+                        <div class="attribute"><span class="private">- id:</span> int</div>
+                        <div class="attribute"><span class="private">- titulo:</span> string</div>
+                        <div class="attribute"><span class="private">- isbn:</span> string</div>
+                        <div class="attribute"><span class="private">- anoPublicacao:</span> int</div>
+                        <div class="attribute"><span class="private">- disponivel:</span> boolean</div>
+                    </div>
+                    <div class="methods">
+                        <div class="section-title">⚙️ Métodos</div>
+                        <div class="method"><span class="public">+ emprestar():</span> boolean</div>
+                        <div class="method"><span class="public">+ devolver():</span> void</div>
+                        <div class="method"><span class="public">+ getInfo():</span> string</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classe Autor -->
+            <div class="class-box">
+                <div class="class-header">✍️ Autor</div>
+                <div class="class-content">
+                    <div class="attributes">
+                        <div class="section-title">📊 Atributos</div>
+                        <div class="attribute"><span class="private">- id:</span> int</div>
+                        <div class="attribute"><span class="private">- nome:</span> string</div>
+                        <div class="attribute"><span class="private">- nacionalidade:</span> string</div>
+                        <div class="attribute"><span class="private">- dataNascimento:</span> date</div>
+                    </div>
+                    <div class="methods">
+                        <div class="section-title">⚙️ Métodos</div>
+                        <div class="method"><span class="public">+ getObras():</span> List</div>
+                        <div class="method"><span class="public">+ adicionarObra():</span> void</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classe Editora -->
+            <div class="class-box">
+                <div class="class-header">🏢 Editora</div>
+                <div class="class-content">
+                    <div class="attributes">
+                        <div class="section-title">📊 Atributos</div>
+                        <div class="attribute"><span class="private">- id:</span> int</div>
+                        <div class="attribute"><span class="private">- nome:</span> string</div>
+                        <div class="attribute"><span class="private">- endereco:</span> string</div>
+                        <div class="attribute"><span class="private">- telefone:</span> string</div>
+                    </div>
+                    <div class="methods">
+                        <div class="section-title">⚙️ Métodos</div>
+                        <div class="method"><span class="public">+ publicarLivro():</span> void</div>
+                        <div class="method"><span class="public">+ getLivrosPublicados():</span> List</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Classe Emprestimo -->
+            <div class="class-box">
+                <div class="class-header">📋 Empréstimo</div>
+                <div class="class-content">
+                    <div class="attributes">
+                        <div class="section-title">📊 Atributos</div>
+                        <div class="attribute"><span class="private">- id:</span> int</div>
+                        <div class="attribute"><span class="private">- dataEmprestimo:</span> date</div>
+                        <div class="attribute"><span class="private">- dataDevolucaoPrevista:</span> date</div>
+                        <div class="attribute"><span class="private">- dataDevolucaoReal:</span> date</div>
+                        <div class="attribute"><span class="private">- status:</span> string</div>
+                    </div>
+                    <div class="methods">
+                        <div class="section-title">⚙️ Métodos</div>
+                        <div class="method"><span class="public">+ calcularMulta():</span> double</div>
+                        <div class="method"><span class="public">+ renovar():</span> boolean</div>
+                        <div class="method"><span class="public">+ finalizar():</span> void</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="relationships">
+            <h2>🔗 Relacionamentos entre Classes</h2>
+            <div class="relationship">
+                <strong>Usuario ← Aluno:</strong> Aluno herda de Usuario (Herança)
+            </div>
+            <div class="relationship">
+                <strong>Usuario ← Atendente:</strong> Atendente herda de Usuario (Herança)
+            </div>
+            <div class="relationship">
+                <strong>Usuario ← Bibliotecária:</strong> Bibliotecária herda de Usuario (Herança)
+            </div>
+            <div class="relationship">
+                <strong>Livro ← Editora:</strong> Cada livro pertence a uma editora (1:N)
+            </div>
+            <div class="relationship">
+                <strong>Livro ↔ Autor:</strong> Livro pode ter múltiplos autores (N:M)
+            </div>
+            <div class="relationship">
+                <strong>Aluno → Empréstimo:</strong> Aluno pode ter múltiplos empréstimos (1:N)
+            </div>
+            <div class="relationship">
+                <strong>Livro → Empréstimo:</strong> Livro pode estar em múltiplos empréstimos (1:N)
+            </div>
+            <div class="relationship">
+                <strong>Atendente → Empréstimo:</strong> Atendente registra empréstimos (1:N)
+            </div>
+        </div>
+
+        <div class="legend">
+            <h3>📝 Legenda</h3>
+            <div class="legend-item"><strong>🔴 Atributos Privados (-):</strong> Acessíveis apenas dentro da própria classe</div>
+            <div class="legend-item"><strong>🟢 Métodos Públicos (+):</strong> Acessíveis por outras classes</div>
+            <div class="legend-item"><strong>🟣 Classe Pai:</strong> Usuario é a classe base para herança</div>
+            <div class="legend-item"><strong>Relacionamentos:</strong> 1:N = Um para muitos, N:M = Muitos para muitos</div>
+        </div>
+    </div>
+</body>
+</html>
