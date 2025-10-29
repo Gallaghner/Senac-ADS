@@ -43,7 +43,48 @@ class Produto:
         preco_desc = self.preco - (self.preco * {percentual/100})
         return preco_desc
 
-    def infos(self):
-        print(f"Nome do produto: {self.nome} | Preco: {self.preco:.2f} | Quantidade: {self.qtd}")
+    def infos_loja(self):
+        print(f"Código {self.cod} | Nome: {self.nome} | Descrição {self.desc} | Preco: {self.preco:.2f} | Quantidade: {self.qtd}")
+
+class ItemPedido:
+    def __init__(self,cod,produto,qtd,preco_un):
+        self.cod = cod
+        self.produto = produto
+        self.qtd = qtd
+        self.preco_un = preco_un
+        self.subtotal = self.calcular_subtotal()
+
+    def calcular_subtotal(self):
+        """Calcula o subtotal do item"""
+        self.subtotal = self.qtd * self.preco_un
+        return self.subtotal
+
+    def att_qtd(self,nova_qtd):
+        """Atualiza a qtd do item"""
+        self.qtd = nova_qtd
+        self.calcular_subtotal()
+        print(f"Quantidade de {self.produto} atualizada para {nova_qtd}")
+        print(f"Novo subtotal: R$ {self.subtotal:.2f}")
+
+    def exibir_informacoes(self):
+        """Exibe informações do item"""
+        infos = f"""
+        Item: {self.produto}
+        Código: {self.cod}
+        Quantidade: {self.qtd}
+        Preço unitário: R${self.preco_un}
+        Subtotal: R$ {self.subtotal:.2f}
+        """
+        print(infos)
+        return infos
          
+class Pedido:
+    def __init__(self,id,data,cliente):
+        self.id = id
+        self.data = data
+        self.cliente = cliente
+        self.valor_total = 0.0
+        self.status = "Aberto"
+        self.itens = []
+        self.pagamento = None
 

@@ -1,333 +1,117 @@
-from datetime import datetime, date
+from datetime import datetime, time, date
 
 class Cliente:
-    def __init__(self, identificacao, nome, cpf, email, telefone):
-        self.identificacao = identificacao
+    def __init__(self, nome, cpf, telefone, email, endereco):
         self.nome = nome
         self.cpf = cpf
-        self.email = email
         self.telefone = telefone
+        self.email = email
+        self.endereco = endereco
         self.pedidos = []
-    
+
     def cadastrar(self):
         """Cadastra o cliente no sistema"""
         print(f"Cliente {self.nome} cadastrado com sucesso!")
-        print(f"ID: {self.identificacao}")
         return True
     
-    def atualizar_cadastro(self, **kwargs):
-        """Atualiza o cadastro do cliente"""
-        for chave, valor in kwargs.items():
-            if hasattr(self, chave):
-                setattr(self, chave, valor)
-        print(f"Cadastro de {self.nome} atualizado!")
-    
-    def consultar_pedidos(self):
-        """Consulta todos os pedidos realizados pelo cliente"""
-        if not self.pedidos:
-            print(f"{self.nome} não possui pedidos realizados.")
-            return []
-        
-        print(f"\nPedidos de {self.nome}:")
-        for pedido in self.pedidos:
-            print(f"- Pedido: {pedido.identificador}")
-            print(f"  Data: {pedido.data}")
-            print(f"  Valor Total: R$ {pedido.valor_total:.2f}")
-            print(f"  Status: {pedido.status}")
-            print()
-        return self.pedidos
+    def atualizar_dados(self, email,telefone):
+        """Atualiza os dados do cliente"""
+        self.email = email
+        self.telefone = telefone
+        print(f"Dados do cliente {self.nome} atualizados!")
 
+
+    
+lista_clientes = []   
+c1 = Cliente('Joao','5648','6798234832','joao@gmail.com','Rua 5')
+lista_clientes.append(c1)
+c1.cadastrar()
+print(lista_clientes)
 
 class Produto:
-    def __init__(self, codigo, nome, descricao, preco, quantidade_estoque):
-        self.codigo = codigo
+    def __init__(self,nome,cod,desc,preco,qtd):
         self.nome = nome
-        self.descricao = descricao
+        self.cod = cod
+        self.desc = desc
         self.preco = preco
-        self.quantidade_estoque = quantidade_estoque
-    
-    def atualizar_estoque(self, quantidade):
-        """Atualiza a quantidade em estoque"""
-        self.quantidade_estoque += quantidade
-        print(f"Estoque de {self.nome} atualizado: {self.quantidade_estoque} unidades")
-        return self.quantidade_estoque
-    
+        self.qtd = qtd
+
+    def atualizar(self,nova_qtd):
+        self.nova_qtd = nova_qtd
+        print(f"Estoque atualizado. Nova quantidade: {self.qtd}.")
+
     def aplicar_desconto(self, percentual):
-        """Aplica um desconto ao produto"""
-        desconto = self.preco * (percentual / 100)
-        preco_com_desconto = self.preco - desconto
-        print(f"Desconto de {percentual}% aplicado em {self.nome}")
-        print(f"Preço original: R$ {self.preco:.2f}")
-        print(f"Preço com desconto: R$ {preco_com_desconto:.2f}")
-        return preco_com_desconto
+        preco_desc = self.preco - (self.preco * {percentual/100})
+        return preco_desc
+
+    def infos(self):
+        """EXIBE INFORMAÇÕES DETALHADAS DO PRODUTO"""
+        print(f"Nome do produto: {self.nome} | Preco: {self.preco:.2f} | Quantidade: {self.qtd} | Código")
     
-    def exibir_informacoes(self):
-        """Exibe informações detalhadas do produto"""
-        info = f"""
-        ===== PRODUTO =====
-        Código: {self.codigo}
-        Nome: {self.nome}
-        Descrição: {self.descricao}
-        Preço: R$ {self.preco:.2f}
-        Estoque: {self.quantidade_estoque} unidades
-        ===================
-        """
-        print(info)
-        return info
-
-
 class ItemPedido:
-    def __init__(self, codigo, produto, quantidade, preco_unitario):
-        self.codigo = codigo
+    def __init__(self,cod,produto,qtd,preco_un):
+        self.cod = cod
         self.produto = produto
-        self.quantidade = quantidade
-        self.preco_unitario = preco_unitario
+        self.qtd = qtd
+        self.preco_un = preco_un
         self.subtotal = self.calcular_subtotal()
-    
+
     def calcular_subtotal(self):
         """Calcula o subtotal do item"""
-        self.subtotal = self.quantidade * self.preco_unitario
+        self.subtotal = self.qtd * self.preco_un
         return self.subtotal
-    
-    def atualizar_quantidade(self, nova_quantidade):
-        """Atualiza a quantidade do item"""
-        self.quantidade = nova_quantidade
+
+    def att_qtd(self,nova_qtd):
+        """Atualiza a qtd do item"""
+        self.qtd = nova_qtd
         self.calcular_subtotal()
-        print(f"Quantidade de {self.produto.nome} atualizada para {nova_quantidade}")
+        print(f"Quantidade de {self.produto} atualizada para {nova_qtd}")
         print(f"Novo subtotal: R$ {self.subtotal:.2f}")
-    
+
     def exibir_informacoes(self):
         """Exibe informações do item"""
-        info = f"""
-        Item: {self.produto.nome}
-        Código: {self.codigo}
-        Quantidade: {self.quantidade}
-        Preço Unitário: R$ {self.preco_unitario:.2f}
+        infos = f"""
+        Item: {self.produto}
+        Código: {self.cod}
+        Quantidade: {self.qtd}
+        Preço unitário: R${self.preco_un}
         Subtotal: R$ {self.subtotal:.2f}
         """
-        print(info)
-        return info
-
-
+        print(infos)
+        return infos
+         
 class Pedido:
-    def __init__(self, identificador, data, cliente):
-        self.identificador = identificador
+    def __init__(self,id,data,cliente):
+        self.id = id
         self.data = data
         self.cliente = cliente
         self.valor_total = 0.0
         self.status = "Aberto"
         self.itens = []
         self.pagamento = None
-        cliente.pedidos.append(self)
-    
-    def adicionar_produto(self, produto, quantidade):
+        Cliente.pedidos.append(self)
+
+    def adicionar_produto(self,produto,qtd):
         """Adiciona um produto ao pedido"""
-        # Verifica se há estoque suficiente
-        if produto.quantidade_estoque < quantidade:
-            print(f"Estoque insuficiente de {produto.nome}")
-            print(f"Disponível: {produto.quantidade_estoque} unidades")
-            return False
-        
-        # Cria um item de pedido
-        codigo_item = f"ITEM{len(self.itens) + 1:03d}"
-        item = ItemPedido(codigo_item, produto, quantidade, produto.preco)
+
+        if Produto.qtd < qtd:
+            print(f"Estoque insuficiente de {Produto.nome}")
+            print(f"Disponivel {Produto.qtd} unidades")
+            return
+
+        cod = f"Item{len(self.itens) + 1}"
+        item = ItemPedido(cod,produto,qtd,Produto.preco)
+
         self.itens.append(item)
-        
-        # Atualiza o estoque do produto
-        produto.atualizar_estoque(-quantidade)
-        
-        print(f"{quantidade}x {produto.nome} adicionado ao pedido")
+
+        Produto.atualizar(-qtd)
+
+        print(f"Adicionado {qtd} x {Produto.nome}")
+
         self.calcular_valor_total()
-        return True
-    
-    def remover_produto(self, codigo_item):
-        """Remove um produto do pedido"""
-        for item in self.itens:
-            if item.codigo == codigo_item:
-                # Devolve o estoque
-                item.produto.atualizar_estoque(item.quantidade)
-                self.itens.remove(item)
-                print(f"Item {codigo_item} removido do pedido")
-                self.calcular_valor_total()
-                return True
-        print(f"Item {codigo_item} não encontrado no pedido")
-        return False
-    
+
     def calcular_valor_total(self):
-        """Calcula o valor total do pedido"""
-        self.valor_total = sum(item.subtotal for item in self.itens)
-        print(f"Valor total do pedido: R$ {self.valor_total:.2f}")
-        return self.valor_total
-    
-    def exibir_pedido(self):
-        """Exibe detalhes completos do pedido"""
-        print(f"\n{'='*50}")
-        print(f"PEDIDO: {self.identificador}")
-        print(f"Cliente: {self.cliente.nome}")
-        print(f"Data: {self.data}")
-        print(f"Status: {self.status}")
-        print(f"{'-'*50}")
-        print("ITENS:")
+
+        self.valor_total = 0
         for item in self.itens:
-            print(f"  {item.quantidade}x {item.produto.nome} - R$ {item.preco_unitario:.2f} = R$ {item.subtotal:.2f}")
-        print(f"{'-'*50}")
-        print(f"VALOR TOTAL: R$ {self.valor_total:.2f}")
-        print(f"{'='*50}\n")
-
-
-class Pagamento:
-    def __init__(self, codigo, pedido, forma_pagamento, valor_pago, data):
-        self.codigo = codigo
-        self.pedido = pedido
-        self.forma_pagamento = forma_pagamento
-        self.valor_pago = valor_pago
-        self.data = data
-        self.status = "Pendente"
-        pedido.pagamento = self
-    
-    def processar_pagamento(self):
-        """Processa o pagamento do pedido"""
-        self.status = "Processando"
-        print(f"Processando pagamento {self.codigo}...")
-        
-        # Verifica se o valor pago é suficiente
-        if self.valor_pago < self.pedido.valor_total:
-            print(f"Valor insuficiente! Faltam R$ {self.pedido.valor_total - self.valor_pago:.2f}")
-            self.status = "Negado"
-            return False
-        
-        # Processa o pagamento
-        self.status = "Aprovado"
-        self.pedido.status = "Pago"
-        print(f"Pagamento aprovado!")
-        print(f"Valor: R$ {self.valor_pago:.2f}")
-        
-        # Calcula troco se houver
-        if self.valor_pago > self.pedido.valor_total:
-            troco = self.valor_pago - self.pedido.valor_total
-            print(f"Troco: R$ {troco:.2f}")
-        
-        return True
-    
-    def confirmar(self):
-        """Confirma o pagamento"""
-        if self.status == "Aprovado":
-            self.status = "Confirmado"
-            self.pedido.status = "Finalizado"
-            print(f"Pagamento {self.codigo} confirmado!")
-            return True
-        print("Pagamento não pode ser confirmado. Status atual:", self.status)
-        return False
-    
-    def emitir_recibo(self):
-        """Emite o recibo do pagamento"""
-        if self.status in ["Aprovado", "Confirmado"]:
-            troco = self.valor_pago - self.pedido.valor_total if self.valor_pago > self.pedido.valor_total else 0
-            
-            recibo = f"""
-            {'='*50}
-                          RECIBO DE PAGAMENTO
-            {'='*50}
-            Código do Pagamento: {self.codigo}
-            Pedido: {self.pedido.identificador}
-            Cliente: {self.pedido.cliente.nome}
-            CPF: {self.pedido.cliente.cpf}
-            {'~'*50}
-            Data: {self.data}
-            Forma de Pagamento: {self.forma_pagamento}
-            {'~'*50}
-            Valor do Pedido: R$ {self.pedido.valor_total:.2f}
-            Valor Pago: R$ {self.valor_pago:.2f}
-            Troco: R$ {troco:.2f}
-            {'~'*50}
-            Status: {self.status}
-            {'='*50}
-            Obrigado pela preferência!
-            {'='*50}
-            """
-            print(recibo)
-            return recibo
-        else:
-            print("Não é possível emitir recibo. Pagamento não aprovado.")
-            return None
-
-
-# ===== EXEMPLO DE USO =====
-if __name__ == "__main__":
-    # Criando cliente
-    cliente1 = Cliente(
-        identificacao="C001",
-        nome="João Silva",
-        cpf="123.456.789-00",
-        email="joao@email.com",
-        telefone="(67) 98765-4321"
-    )
-    cliente1.cadastrar()
-    
-    # Criando produtos
-    produto1 = Produto(
-        codigo="P001",
-        nome="Notebook Dell",
-        descricao="Notebook i7, 16GB RAM, 512GB SSD",
-        preco=3500.00,
-        quantidade_estoque=10
-    )
-    
-    produto2 = Produto(
-        codigo="P002",
-        nome="Mouse Logitech",
-        descricao="Mouse sem fio",
-        preco=80.00,
-        quantidade_estoque=50
-    )
-    
-    produto3 = Produto(
-        codigo="P003",
-        nome="Teclado Mecânico",
-        descricao="Teclado mecânico RGB",
-        preco=250.00,
-        quantidade_estoque=30
-    )
-    
-    # Exibindo informações de um produto
-    produto1.exibir_informacoes()
-    
-    # Criando um pedido
-    pedido1 = Pedido(
-        identificador="PED001",
-        data=date.today(),
-        cliente=cliente1
-    )
-    
-    # Adicionando produtos ao pedido
-    print("\n" + "="*50)
-    print("ADICIONANDO PRODUTOS AO PEDIDO")
-    print("="*50)
-    pedido1.adicionar_produto(produto1, 1)
-    pedido1.adicionar_produto(produto2, 2)
-    pedido1.adicionar_produto(produto3, 1)
-    
-    # Exibindo o pedido
-    pedido1.exibir_pedido()
-    
-    # Criando e processando pagamento
-    print("\n" + "="*50)
-    print("PROCESSANDO PAGAMENTO")
-    print("="*50)
-    pagamento1 = Pagamento(
-        codigo="PAG001",
-        pedido=pedido1,
-        forma_pagamento="Cartão de Crédito",
-        valor_pago=pedido1.valor_total,
-        data=date.today()
-    )
-    
-    pagamento1.processar_pagamento()
-    pagamento1.confirmar()
-    pagamento1.emitir_recibo()
-    
-    # Consultando pedidos do cliente
-    print("\n" + "="*50)
-    print("CONSULTANDO PEDIDOS DO CLIENTE")
-    print("="*50)
-    cliente1.consultar_pedidos()
+            self.valor_total = self.valor_total + item.subtotal
