@@ -1,0 +1,78 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #2c3e50; /* Azul ardósia escuro */
+    color: #ecf0f1; /* Quase branco */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container-jogo {
+    background-color: #34495e; /* Azul ardósia um pouco mais claro */
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.titulo-jogo {
+    color: #1abc9c; /* Turquesa */
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+}
+
+#gameCanvas {
+    background-color: #7f8c8d; /* Cinza neutro para o fundo do canvas */
+    border: 5px solid #2c3e50; /* Borda da cor do fundo da página */
+    border-radius: 8px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.2); /* Sombra interna suave */
+}
+
+.instrucoes {
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+
+.instrucoes kbd {
+    background-color: #ecf0f1;
+    color: #2c3e50;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    border: 1px solid #bdc3c7; /* Cinza claro para borda */
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+#scoreDisplay {
+    font-weight: bold;
+    color: #f1c40f; /* Amarelo girassol para pontuação */
+    font-size: 1.3em;
+    margin-top: 10px;
+}
+
+.botao-jogo {
+    background-color: #1abc9c; /* Turquesa */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.2em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    margin-top: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.botao-jogo:hover {
+    background-color: #16a085; /* Turquesa mais escuro */
+}
+
+.botao-jogo:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+}

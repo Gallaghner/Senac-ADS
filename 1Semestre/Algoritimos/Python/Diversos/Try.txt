@@ -1,0 +1,101 @@
+# Sistema de Venda de Passagens Aéreas
+clientes = []
+passagens = []
+avioes = []
+tripulacao = []
+
+def cadastrar_cliente():
+    try:
+        cliente = {
+            "nome": input("Nome: "),
+            "sobrenome": input("Sobrenome: "),
+            "rg": input("RG: "),
+            "cpf": input("CPF: "),
+            "endereco": input("Endereço: "),
+            "fone": input("Telefone: "),
+            "idade": int(input("Idade: "))
+        }
+        clientes.append(cliente)
+        print("Cliente cadastrado com sucesso!\n")
+    except Exception as e:
+        print(f"Erro ao cadastrar cliente: {e}\n")
+
+def cadastrar_passagem():
+    try:
+        passagem = {
+            "destino": input("Destino: "),
+            "origem": input("Origem: "),
+            "duracao": input("Duração: "),
+            "valor": float(input("Valor da passagem: R$ ")),
+        }
+        passagem["desconto"] = passagem["valor"] * 0.05
+        passagens.append(passagem)
+        print("Passagem cadastrada com sucesso!\n")
+    except Exception as e:
+        print(f"Erro ao cadastrar passagem: {e}\n")
+
+def cadastrar_aviao():
+    try:
+        aviao = {
+            "modelo": input("Modelo: "),
+            "ano": int(input("Ano: ")),
+            "horas_voo": float(input("Horas de Voo: ")),
+            "cor": input("Cor: "),
+            "qtd_passageiros": int(input("Quantidade de passageiros: "))
+        }
+        avioes.append(aviao)
+        print("Avião cadastrado com sucesso!\n")
+    except Exception as e:
+        print(f"Erro ao cadastrar avião: {e}\n")
+
+def cadastrar_tripulante():
+    try:
+        tripulante = {
+            "nome": input("Nome: "),
+            "cargo": input("Descrição do Cargo: "),
+            "idade": int(input("Idade: ")),
+            "data_admissao": input("Data de Admissão: "),
+            "fone": input("Telefone: ")
+        }
+        tripulacao.append(tripulante)
+        print("Tripulante cadastrado com sucesso!\n")
+    except Exception as e:
+        print(f"Erro ao cadastrar tripulante: {e}\n")
+
+def imprimir_relatorios():
+    print("\n--- RELATÓRIOS ---")
+    print(f"\nClientes: {clientes}")
+    print(f"\nPassagens: {passagens}")
+    print(f"\nAviões: {avioes}")
+    print(f"\nTripulação: {tripulacao}\n")
+
+def menu():
+    while True:
+        print("\n--- MENU ---")
+        print("1 - Cadastrar Cliente")
+        print("2 - Cadastrar Passagem")
+        print("3 - Cadastrar Avião")
+        print("4 - Cadastrar Tripulação")
+        print("5 - Imprimir Relatórios")
+        print("6 - Encerrar")
+        try:
+            opcao = int(input("Escolha uma opção: "))
+            if opcao == 1:
+                cadastrar_cliente()
+            elif opcao == 2:
+                cadastrar_passagem()
+            elif opcao == 3:
+                cadastrar_aviao()
+            elif opcao == 4:
+                cadastrar_tripulante()
+            elif opcao == 5:
+                imprimir_relatorios()
+            elif opcao == 6:
+                print("Encerrando o sistema...")
+                break
+            else:
+                print("Opção inválida!\n")
+        except ValueError:
+            print("Digite um número válido.\n")
+
+menu()
