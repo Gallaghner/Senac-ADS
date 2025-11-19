@@ -79,7 +79,7 @@ class ItemPedido:
         """
         print(infos)
         return infos
-         
+    
 class Pedido:
     def __init__(self,id,data,cliente):
         self.id = id
