@@ -1,35 +1,19 @@
 class Pessoa:
-    def __init__(self, nome, idade, endereco):
+    def __init__(self,nome,fone,email,cidade,estado):
         self.nome = nome
-        self.idade = idade
-        self.endereco = endereco
-    
-    def mostrar_nome(self):
-        return self.nome
-    
-    def alterar_idade(self, nova_idade):
-        self.idade = nova_idade
+        self.fone = fone
+        self.email = email
+        self.cidade = cidade
+        self.estado = estado
 
 
-class Aluno(Pessoa):
-    def __init__(self, nome, idade, endereco, matricula, curso):
-        super().__init__(nome, idade, endereco)
-        self.matricula = matricula
-        self.curso = curso
-    
-    def mostrar_info(self):
-        return f"Aluno: {self.nome}, Matrícula: {self.matricula}, Curso: {self.curso}"
-    
-    def alterar_curso(self, novo_curso):
-        self.curso = novo_curso
+    def get_all(self):
+        print(self.nome)
+        print(self.fone)
+        print(self.email)
+        print(self.cidade)
+        print(self.estado)
 
+p1 = Pessoa('João','67998654823','jprodriguespro@gmail.com','Campo Grande', 'MS')
 
-# Testando
-p1 = Pessoa("Bonassa", 25, "Rua A")
-p1.mostrar_nome()
-
-a1 = Aluno("João", 20, "Rua B", "2024001", "Ciência da Computação")
-print(a1.mostrar_info())
-print(a1.mostrar_nome())  # Herdado de Pessoa
-a1.alterar_curso("Engenharia")
-print(a1.mostrar_info())
+p1.get_all()
